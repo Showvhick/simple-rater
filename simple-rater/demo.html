@@ -1,0 +1,53 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="utf-8">
+<title>Simple-Rater by Showvhick</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.rating.js"></script>
+</head>
+<body>
+  <p> Default Rating </p><div id="rate"></div>  
+  <p>Customized Rating</p> <div id="rate2"></div>   
+     
+  
+   <input type="button" id="vll" value="Get value of customized rater">
+   <input type="button" id="reset" value="Reset customized rater">
+   <input type="button" id="disable" value="Disable customized rater">
+
+</div>
+
+
+
+<script type="text/javascript">
+
+   $('#rate').rating();   
+  
+   $('#rate2').rating({
+      size:40,                      //this option defines the size of the star
+      primaryColor:"#999",         //this color code defines the primary color of stars
+      hoverColor:"#0066ff",        //this color code defines the hover state of stars    
+      count:5                      //defines the number of stars you want in a rater       
+   });
+
+
+
+
+$(document).on('click','#reset',function(){
+  $('#rate2').rating('refresh');    //this option resets the rater and set to 0
+})
+
+$(document).on('click','#vll',function(){
+  alert($('#rate2').rating('val')); //this option returns you the value of the rating done by the user
+})
+
+$(document).on('click','#disable',function(){
+$('#rate2').rating('disable'); //this option disables the rater
+})
+
+
+
+</script>
+
+</body>
+</html>
