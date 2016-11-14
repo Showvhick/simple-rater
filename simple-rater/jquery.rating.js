@@ -128,15 +128,87 @@ if($(this).attr('data-readonly') == 'false'){
 })
 
 
-$(document).on('click','.simple-rater-holder',function(){
-   $(this).attr('data-ratestate',1);
+$(document).on('click','.simple-rater-holder',function(e){
+/*   $(this).attr('data-ratestate',1);
   var a = $(this).find('.simple-rater-overflow').width();
  var b = parseInt(100)/parseInt($(this).find('.simple-rater-box').length);
 var c = parseFloat(b);
 var d = parseFloat(100)*parseFloat($(this).find('.simple-rater-overflow').width());
 var f = parseFloat(d)/parseFloat($(this).width());
 var g = parseFloat(f)/parseFloat(b);
+$(this).attr('data-selected',g);*/
+
+if($(this).attr('data-readonly') == 'false'){  
+
+  if($(this).attr('data-scale') == 10){
+  var a = parseInt($(this).position().left);
+    var overflowsize = parseInt(e.pageX)-parseInt(a);
+   $('.simple-rater-overflow').css('width',overflowsize+'px');
+   var b = parseInt(100)/parseInt($(this).find('.simple-rater-box').length);
+var c = parseFloat(b);
+var d = parseFloat(100)*parseFloat(overflowsize);
+var f = parseFloat(d)/parseFloat($(this).width());
+var g = parseFloat(f)/parseFloat(b);
 $(this).attr('data-selected',g);
+
+  }
+  else if($(this).attr('data-scale') == 2){
+    var a = parseInt($(this).position().left);
+    var overflowsize = parseInt(e.pageX)-parseInt(a);
+  // $('.simple-rater-overflow').css('width',overflowsize+'px');
+
+    var b = parseInt(100)/parseInt($(this).find('.simple-rater-box').length);
+    var c = parseFloat(b);
+    var d = parseFloat(100)*parseFloat(overflowsize);
+    var f = parseFloat(d)/parseFloat($(this).width());
+    var g = parseFloat(f)/parseFloat(b);
+
+    if(g.toFixed(2).toString().split('.')[1] > 50){
+      var h = parseFloat(g.toFixed(2).toString().split('.')[0])+parseInt(1);
+          $(this).attr('data-selected',h);
+    
+    var b = parseInt(100)/parseInt($(this).find('.simple-rater-box').length);
+    var c = parseFloat(b)*parseFloat(h);
+    var d = c+'%';
+    $(this).find('.simple-rater-overflow').css('width',d);
+
+    }
+    else{
+      var h = parseFloat(g.toFixed(2).toString().split('.')[0])+parseFloat(0.5);
+          $(this).attr('data-selected',h);
+      var b = parseInt(100)/parseInt($(this).find('.simple-rater-box').length);
+      var c = parseFloat(b)*parseFloat(h);
+      var d = c+'%';
+      console.log(d);
+      $(this).find('.simple-rater-overflow').css('width',d);
+    }
+
+  }
+  else{
+
+    var a = parseInt($(this).position().left);
+    var overflowsize = parseInt(e.pageX)-parseInt(a);
+   $('.simple-rater-overflow').css('width',overflowsize+'px');
+
+    var b = parseInt(100)/parseInt($(this).find('.simple-rater-box').length);
+    var c = parseFloat(b);
+    var d = parseFloat(100)*parseFloat($(this).find('.simple-rater-overflow').width());
+    var f = parseFloat(d)/parseFloat($(this).width());
+    var g = parseFloat(f)/parseFloat(b);
+   
+   
+      var h = parseFloat(g.toFixed(2).toString().split('.')[0])+parseInt(1);
+      
+     $(this).attr('data-selected',h);
+    var b = parseInt(100)/parseInt($(this).find('.simple-rater-box').length);
+    var c = parseFloat(b)*parseFloat(h);
+    var d = c+'%';
+    $(this).find('.simple-rater-overflow').css('width',d);
+  }
+}
+
+
+
 })
 
 
