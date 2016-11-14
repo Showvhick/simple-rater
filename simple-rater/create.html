@@ -1,0 +1,180 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="utf-8">
+<title>Simple-Rater by Showvhick</title>
+<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.rating.js"></script>
+<style type="text/css">
+  body { font-family: 'Raleway', sans-serif; }
+  form { float: left; width: 50%; padding: 0px 20px; box-sizing: border-box; }
+  label { float: left; width: 20%; }
+  section { float: left; width: 100%; margin-top: 20px; }
+  input[type="text"],input[type="number"]{ float: left; width: 20%; padding: 5px 10px; box-sizing: border-box; text-align: center; }
+  .input-group { float: left; width: 20%; }
+  .input-group .input-field { float: left; width: 100% }
+  .input-group input[type="radio"] { float: left; width: auto; }
+  .input-group label { float: left; width: auto; }
+  section p { float: left; width: 60%; padding:0; padding-left: 20px; box-sizing: border-box; margin: 0; margin-top: -5px; font-size: 13px }
+  .custom-rater-holder,.code-preview { float: left; width: 50%; padding: 0px 30px; box-sizing: border-box;}
+  .code-preview{ margin-top: 30px; }
+</style>
+
+
+
+</head>
+<body>
+
+
+  <form id="create">
+      <h1>Create your rater</h1>
+
+      <section>
+          <label>Number of stars</label>
+          <input type="number" value="5" id="number">
+          <p class="comment">You can set any value here. This is number of stars. Typically ranges between 5-10. Default is 5</p>
+      </section>
+
+      <section>
+          <label>Size</label>
+          <input type="number" value="20" id="size">
+          <p class="comment">You can set any value here. This is size of stars. Typically ranges between 20-60. Default is 20</p>
+      </section>
+
+    
+
+      <section>
+          <label>Primary color</label>
+          <input type="text" value="#F4F4F4" id="primarycolor">
+          <p class="comment">You can set any color code here. This is color of stars which are not selected. Default value is #F4F4F4</p>
+      </section>
+
+      <section>
+          <label>Hover/Selected Color</label>
+          <input type="text" value="#fdb300" id="selectedcolor">
+          <p class="comment">You can set any color code here. This is color of stars which are selected. Default value is #fdb300</p>
+      </section>
+
+      <section>
+          <label>Scale</label>
+          <input type="hidden" value="10" id="scaleval">
+          <div class="input-group" id="scalevalradio">
+          <div class="input-field">
+          <input type="radio" value="1" id="scale-1" name="scaleval"><label for="scale-1">1</label></div>
+           <div class="input-field">
+          <input type="radio" value="2" id="scale-2" name="scaleval"><label for="scale-2">2</label></div>
+           <div class="input-field">
+          <input type="radio" value="10" id="scale-10" name="scaleval" checked><label for="scale-10">10</label></div>
+          </div>
+          <p class="comment">You can set 1,2 or 10. 10 is default. 10 means you can select and get any fraction of value like 1.1, 2.3, 4.6. If you set 2, it means you can get only half and full value. like 1.5, 2.5, 3, 3.5 etc. And if you select 1, it means you can get only 1, 2, 3, 4, 5 etc</p>
+      </section>
+
+      <section>
+          <label>Read only</label>
+          <div class="input-group">
+          <input type="checkbox" id="readonly" />
+          </div>
+          <p>It means user can change value of rating box or not. It typically used where you just want to show rating, not to take any input from user</p>
+      </section>
+
+       <section>
+          <label>Default Rate</label>
+          <input type="number" value="0" id="defaultrate">
+          <p class="comment">You can pre-set ant rating value here. It should be less than number of Count. Like if your count is 5, then it should be from 0 to 5</p>
+      </section>
+
+      <section><input type="submit" value="Create"></section>
+
+      <p style="float: left; margin-top: 20px">Built by <a href="https://www.twitter.com/showvhick">Showvhick</a></p>
+
+
+  </form>
+
+  <div class="custom-rater-holder" style="display: none;">
+  <h1>Rating</h1>
+    <div id="rate"></div>
+      <div class="controller" style="float: left; width: 100%; margin-top: 50px">
+   <input type="button" id="vll" value="Get value of rater">
+   <input type="button" id="reset" value="Reset rater">
+   <input type="button" id="disable" value="Disable rater">
+   <input type="button" id="enable" value="Enable rater" style="display: none;">
+  </div> 
+  </div>
+
+  <div class="code-preview" style="display: none;">
+    <h1>Code Preview</h1>
+
+    <h5>HTML</h5>
+    <xmp><div id="rate"></div></xmp>
+
+    <h5>Javascript</h5>
+
+    <xmp id="javscript-code"></xmp>
+
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+ $('#scalevalradio input[type="radio"]').on('change',function(){
+   $('#scaleval').val($(this).val());
+ })
+
+$(document).on('submit','form',function(e){
+  e.preventDefault();
+  var size = $('#size').val();
+  var number = $('#number').val();
+  var primarycolor = $('#primarycolor').val();
+  var selectedcolor = $('#selectedcolor').val();
+  var scaleval = $('#scaleval').val();
+  if($('#readonly').is(':checked')){
+    var readonlyval = "true"
+  }
+  else{
+    var readonlyval = "false"
+  }
+  var defaultrate = $('#defaultrate').val();
+
+  var string = '$(\'#rate\').rating({count:'+number+',size:'+size+',primaryColor:"'+primarycolor+'",selectedcolor:"'+selectedcolor+'",scale:'+scaleval+',readonly:"'+readonlyval+'",rate:'+defaultrate+'})';
+  $('#rate').html('');
+  var stringcode = '$(\'#rate\').rating({\ncount:'+number+',\nsize:'+size+',\nprimaryColor:"'+primarycolor+'",\nselectedcolor:"'+selectedcolor+'",\nscale:'+scaleval+',\nreadonly:"'+readonlyval+'",\nrate:'+defaultrate+'\n})\n\n$(\'#rate\').rating(\'refresh\');  //this option resets the rater and set to 0\n\n$(\'#rate\').rating(\'val\'); //Get the value from the rater\n\n$(\'#rate\').rating(\'disable\'); //this option disables the rater\n\n$(\'#rate\').rating(\'enable\'); //this option enables the rater';
+
+  eval(string);
+  $('.code-preview,.custom-rater-holder').show();
+  $('#javscript-code').html(stringcode);
+
+})
+
+
+
+
+
+$(document).on('click','#reset',function(){
+  $('#rate').rating('refresh');    //this option resets the rater and set to 0
+})
+
+$(document).on('click','#vll',function(){
+  alert($('#rate').rating('val')); //this option returns you the value of the rating done by the user
+})
+
+$(document).on('click','#disable',function(){
+$('#rate').rating('disable'); //this option disables the rater
+$('#disable').hide();
+$('#enable').show();
+})
+
+$(document).on('click','#enable',function(){
+$('#rate').rating('enable'); //this option disables the rater
+$('#disable').show();
+$('#enable').hide();
+})
+
+
+
+</script>
+
+</body>
+</html>
